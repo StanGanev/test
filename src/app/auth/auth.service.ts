@@ -8,15 +8,15 @@ import { Observable } from '../../../node_modules/rxjs';
 const appKey = 'kid_HJCY7AMU4';
 const appSecret = '37a51e178a55408595babcaa06933516';
 const registerUrl = `https://baas.kinvey.com/user/${appKey}`;
-const loginUrl = `http://baas.kinvey.com/user/${appKey}/login`;
-const logoutUrl = `http://baas.kinvey.com/user/${appKey}/_logout`;
+const loginUrl = `https://baas.kinvey.com/user/${appKey}/login`;
+const logoutUrl = `https://baas.kinvey.com/user/${appKey}/_logout`;
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class AuthService {
 
     constructor(private http: HttpClient, router: Router) { }
 
-    login(loginModel: LoginModel): Observable<LoginModel> {
+    login(loginModel: Object): Observable<LoginModel> {
         return this.http.post(loginUrl, JSON.stringify(loginModel),
     {
         headers: this.getHeaders('Basic')
