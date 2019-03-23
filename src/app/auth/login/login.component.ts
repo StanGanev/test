@@ -11,7 +11,9 @@ import { Observable } from 'rxjs';
 })
 export class LoginComponent implements OnInit {
 loginModel: LoginModel
-    
+username: string;
+authToken: string;
+
 constructor(private authService: AuthService, private router: Router) {
     this.loginModel = new LoginModel('','');
 }
@@ -25,7 +27,10 @@ constructor(private authService: AuthService, private router: Router) {
         this.authService
         .login(this.loginModel)
         .subscribe(res => {
-            console.log(res);
+            this.username = res['username'];
+            this.authToken = res['_kmd']['authtoken'];
+            sessionStorage.setItem('username', this.username);
+            sessionStorage.setItem('authtoken', this.authToken);
             this.router.navigate(['/home'])
         }, err => {
             console.log(err);

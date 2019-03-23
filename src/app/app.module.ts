@@ -11,6 +11,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '../../node_modules/@angular/common/http';
 import { AuthService } from './auth/auth.service';
+import { CreatePetComponent } from './pets/create-pet/create-pet.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { AuthService } from './auth/auth.service';
     NavigationComponent,
     FooterComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    CreatePetComponent
   ],
   imports: [
     BrowserModule,

@@ -13,10 +13,11 @@ const logoutUrl = `https://baas.kinvey.com/user/${appKey}/_logout`;
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
+    token: string;
 
-    constructor(private http: HttpClient, router: Router) { }
+    constructor(private http: HttpClient,private router: Router) { }
 
-    login(loginModel: Object): Observable<LoginModel> {
+    login(loginModel: LoginModel) {
         return this.http.post(loginUrl, JSON.stringify(loginModel),
     {
         headers: this.getHeaders('Basic')
@@ -31,10 +32,29 @@ export class AuthService {
     }
 
     logout() {
+        sessionStorage.clear();
+        return this.http.post(logoutUrl,{},{
+            headers: this.getHeaders('Kinvey')
+        }).subscribe(() => {
+      
+            this.router.navigate['/home']
+        })
+    }
+
+    getUsername() {
+        return this.token = sessionStorage.getItem('username');
+    }
+
+    getToken() {
+        return this.token = sessionStorage.getItem('authtoken');
 
     }
 
-    private getHeaders(type: string): HttpHeaders {
+    isLoggedIn(): boolean {
+        return this.getToken() !== null;
+    }
+
+    public getHeaders(type: string): HttpHeaders {
         if (type === 'Basic') {
             return new HttpHeaders({
                 'Authorization': `Basic ${btoa(`${appKey}:${appSecret}`)}`,
